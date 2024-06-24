@@ -92,12 +92,12 @@ protobuf {
 sourceSets {
     main {
         proto {
-            srcDir "../proto"
+            srcDir "./proto"
         }
     }
     test {
         proto {
-            srcDir "../proto"
+            srcDir "./proto"
         }
     }
 }

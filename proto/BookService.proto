@@ -1,0 +1,37 @@
+//the same as at the client's side
+
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+package com.example.bookstore.service;
+
+// Is used as a request parameter when client needs to specify which data he wants to store/retrieve.
+message BookRequest {
+  string title = 1;
+  string author = 2;
+  string isbn = 3;
+  int32 quantity = 4;
+}
+
+// Is used to transfer data. It could be used as a request parameter or as a response.
+message BookDto {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+  string isbn = 4;
+  int32 quantity = 5;
+}
+
+service BookService {
+  rpc create(BookRequest) returns (BookDto);
+
+  // rpc getAll(BookRequest) performs filtered entity retrieving.
+  // If BookRequest message has empty fields, it is equivalent to general getAll().
+  // If not, then books only matching BookRequest message are returned
+  rpc getAll(BookRequest) returns (stream BookDto);
+
+  rpc update(BookDto) returns (google.protobuf.Empty);
+
+  rpc delete(BookDto) returns (google.protobuf.Empty);
+}
